@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .upload-btn-wrapper {
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            opacity: 0;
+        }
+        #drop_zone {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding-top: 21%;
+            padding-left: 46%;
+        }
+    </style>
+    <script>
+        function dropHandler(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var file = e.dataTransfer.files;
+            var fd = new FormData();
+
+            fd.append('file', file[0]);
+
+            sendFile(fd);
+        }
+
+        function sendFile( formData ) {
+            $.ajax({
+                url: 'http://localhost:3000/sendFile',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(response) {
+                    console.log(response.error);
+                }   
+            });
+        }
+        function dragOverHandler(ev) {
+            ev.preventDefault();
+        }
+    </script>
+</head>
+    <body>
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            <div class="upload-btn-wrapper">
+                <button class="btn">Upload a file</button>
+                <input type="file" name="myfile" />
+            </div>
+        </div>
+    </body>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+		
+</html>
+
+
