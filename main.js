@@ -21,7 +21,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.render('index', { people: [{image: 'logo.jpg', title: 'Test', text: 'test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test'}] });
+    res.render('index', { people: [{image: 'logo.jpg', title: `Step by step procedures of bringing archives online.`, text: `1.    Sorting out the digital files and cataloging them according to a standard format.
+    <br>2.    Designing an archives management system and importing the metadata into it.
+    <br>3.    Making the search engine convenient and friendly using by providing more filter conditions and keywords to help stimulate divergent thinking.
+    <br>4.    Showing some highlights of the archives to attract users explore the collections.`}] });
 });
 
 app.get('/sendFile', (req, res) => {
